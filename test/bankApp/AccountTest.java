@@ -17,7 +17,7 @@ public class AccountTest {
     }
 
     @Test
-    public void deposit2000InMyAccount_balanceIs2000Test(){
+    public void testThatAtStartAccountBalanceIsZero(){
         assertEquals(0, myAccount.checkBalance("123098"));
     }
 
