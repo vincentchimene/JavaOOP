@@ -12,8 +12,8 @@ public class AccountTest {
 
     @BeforeEach
     public void setUp(){
-        String correctPassword = "123098";
-        myAccount = new Account(correctPassword);
+        String correctPin = "123098";
+        myAccount = new Account("firstName", "lastName", "001", correctPin);
     }
 
     @Test
