@@ -10,6 +10,9 @@ public class HugeInteger {
     }
 
     public void parse(String text){
+        if(text.length() > 40){
+            throw new IllegalArgumentException();
+        }
         for(int index = this.array.length - 1; index >= this.array.length - text.length(); index--){
             char character = text.charAt(index - this.array.length + text.length());
             int integerValue = character - '0';
@@ -28,18 +31,24 @@ public class HugeInteger {
         return result;
     }
 
-    public HugeInteger add (HugeInteger number1, HugeInteger number2){
+    public HugeInteger add (HugeInteger number2){
         HugeInteger result = new HugeInteger();
-        for(int index = this.array.length - 1; index >= this.array.length - textLength; index--){
-            int sum = number1.array[index] + number2.array[index];
-            if(sum < 10){
-                result.array[index] = number1.array[index] + number2.array[index];
-            }
-            else{
-                result.array[index] = sum % 10;
-            }
+        int carry = 0;
+        int count = 0;
+        for(int index = this.array.length - 1; index >= 0; index--){
 
+            int sum = this.array[index] + number2.array[index] + carry;
+            result.array[index] = sum % 10;
+            carry = sum / 10;
+            count++;
         }
+        result.textLength = Math.max(this.textLength, number2.textLength);
+
+        if (carry > 0) {
+            result.array[this.array.length - result.textLength - 1] = carry;
+            result.textLength++;
+        }
+        return result;
     }
 
 
